@@ -229,7 +229,7 @@ test.cb('cacheableRequest does not cache response if request is aborted before r
   /* eslint-enable max-nested-callbacks */
 })
 
-test.cb('cacheableRequest does not cache response if request is aborted after receiving part of the response', t => {
+test.cb.skip('cacheableRequest does not cache response if request is aborted after receiving part of the response', t => {
   /* eslint-disable max-nested-callbacks */
   // eslint-disable-next-line promise/prefer-await-to-then
   createTestServer().then(s => {

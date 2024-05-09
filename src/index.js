@@ -5,7 +5,6 @@ const urlLib = require('url')
 const normalizeUrl = require('normalize-url')
 const CachePolicy = require('http-cache-semantics')
 const Response = require('responselike')
-const lowercaseKeys = require('lowercase-keys')
 const { cloneResponse } = require('./clone-response')
 const Keyv = require('keyv')
 
@@ -50,7 +49,10 @@ class CacheableRequest {
         ...opts,
         ...urlObjectToRequestOptions(url)
       }
-      opts.headers = lowercaseKeys(opts.headers)
+      opts.headers = Object.keys(opts.headers).reduce((result, key) => {
+        result[key.toLowerCase()] = opts.headers[key]
+        return result
+      }, {})
 
       const ee = new EventEmitter()
       const normalizedUrlString = normalizeUrl(
