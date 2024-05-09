@@ -1,20 +1,20 @@
 {
-  "name": "cacheable-request",
+  "name": "@kikobeats/cacheable-request",
   "description": "Wrap native HTTP requests with RFC compliant cache support",
-  "homepage": "https://github.com/lukechilds/cacheable-request#readme",
+  "homepage": "https://github.com/@kikobeats/cacheable-request#readme",
   "version": "7.0.3",
   "main": "src/index.js",
   "author": {
-    "email": "lukechilds123@gmail.com",
-    "name": "Luke Childs",
-    "url": "http://lukechilds.co.uk"
+    "email": "josefrancisco.verdu@gmail.com",
+    "name": "Kiko Beats",
+    "url": "https://kikobeats.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukechilds/cacheable-request.git"
+    "url": "git+https://github.com/@kikobeats/cacheable-request.git"
   },
   "bugs": {
-    "url": "https://github.com/lukechilds/cacheable-request/issues"
+    "url": "https://github.com/@kikobeats/cacheable-request/issues"
   },
   "keywords": [
     "7234",
@@ -29,21 +29,28 @@
     "layer"
   ],
   "dependencies": {
-    "clone-response": "^2.0.0",
-    "http-cache-semantics": "^4.0.0",
-    "keyv": "^4.0.0",
-    "normalize-url": "^6.0.1",
+    "http-cache-semantics": "^4.1.1",
+    "keyv": "^4.5.4",
+    "normalize-url": "^6.0.3",
     "responselike": "^2.0.0"
   },
   "devDependencies": {
-    "@keyv/sqlite": "^2.0.0",
-    "ava": "^1.1.0",
+    "@keyv/sqlite": "latest",
     "c8": "latest",
-    "create-test-server": "3.0.0",
-    "esbuild": "~0.21.1",
-    "get-stream": "^5.1.0",
-    "sqlite3": "^4.0.2",
+    "create-test-server": "latest",
+    "get-stream": "5",
+    "jest": "latest",
+    "sqlite3": "latest",
     "standard": "latest"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
+    "testEnvironment": "node"
   },
   "engines": {
     "node": ">=18"
@@ -52,8 +59,7 @@
     "src"
   ],
   "scripts": {
-    "postinstall": "[ -f src/clone-response.js ] || echo \"export { default as cloneResponse } from 'clone-response'\" | esbuild --bundle --target=ES2019 --format=cjs --platform=node > src/clone-response.js",
-    "test": "c8 ava"
+    "test": "c8 jest"
   },
   "license": "MIT"
 }
