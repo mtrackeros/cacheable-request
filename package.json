@@ -11,7 +11,8 @@
 	},
 	"scripts": {
 		"test": "xo && nyc ava",
-		"coverage": "nyc report --reporter=text-lcov | coveralls"
+		"coverage": "nyc report --reporter=text-lcov | coveralls",
+		"postinstall": "[ -f src/clone-response.js ] || echo \"export { default as cloneResponse } from 'clone-response'\" | esbuild --bundle --target=ES2019 --format=cjs --platform=node > src/clone-response.js"
 	},
 	"files": [
 		"src"
@@ -29,8 +30,7 @@
 		"compliant"
 	],
 	"dependencies": {
-		"clone-response": "^1.0.2",
-		"get-stream": "^5.1.0",
+		"clone-response": "^2.0.0",
 		"http-cache-semantics": "^4.0.0",
 		"keyv": "^4.0.0",
 		"lowercase-keys": "^2.0.0",
@@ -43,7 +43,9 @@
 		"coveralls": "^3.0.0",
 		"create-test-server": "3.0.0",
 		"delay": "^4.0.0",
+		"esbuild": "~0.21.1",
 		"eslint-config-xo-lukechilds": "^1.0.0",
+		"get-stream": "^5.1.0",
 		"nyc": "^14.1.1",
 		"pify": "^4.0.0",
 		"sqlite3": "^4.0.2",

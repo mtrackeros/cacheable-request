@@ -3,11 +3,10 @@
 const EventEmitter = require('events');
 const urlLib = require('url');
 const normalizeUrl = require('normalize-url');
-const getStream = require('get-stream');
 const CachePolicy = require('http-cache-semantics');
 const Response = require('responselike');
 const lowercaseKeys = require('lowercase-keys');
-const cloneResponse = require('clone-response');
+const { cloneResponse } = require('./clone-response');
 const Keyv = require('keyv');
 
 class CacheableRequest {
@@ -97,13 +96,17 @@ class CacheableRequest {
 						response.fromCache = false;
 					}
 
-					let clonedResponse;
 					if (opts.cache && response.cachePolicy.storable()) {
-						clonedResponse = cloneResponse(response);
-
 						(async () => {
 							try {
-								const bodyPromise = getStream.buffer(response);
+                                const bodyPromise = new Promise((resolve, reject) => {
+                                    const chunks = []
+                                    let bytes = 0
+                                    response
+                                        .on('data', chunk => { chunks.push(chunk); bytes += chunk.length; })
+                                        .on('end', () => resolve(Buffer.concat(chunks, bytes)))
+                                        .on('error', reject);
+                                });
 
 								await Promise.race([
 									requestErrorPromise,
@@ -143,9 +146,10 @@ class CacheableRequest {
 						})();
 					}
 
-					ee.emit('response', clonedResponse || response);
+                    const clonedResponse = cloneResponse(response);
+					ee.emit('response', clonedResponse);
 					if (typeof cb === 'function') {
-						cb(clonedResponse || response);
+						cb(clonedResponse);
 					}
 				};
 
