@@ -28,10 +28,10 @@ class CacheableRequest {
     return (opts, cb) => {
       let url
       if (typeof opts === 'string') {
-        url = normalizeUrlObject(urlLib.parse(opts))
+        url = normalizeUrlObject(new urlLib.URL(opts))
         opts = {}
       } else if (opts instanceof urlLib.URL) {
-        url = normalizeUrlObject(urlLib.parse(opts.toString()))
+        url = normalizeUrlObject(new urlLib.URL(opts.toString()))
         opts = {}
       } else {
         const [pathname, ...searchParts] = (opts.path || '').split('?')
