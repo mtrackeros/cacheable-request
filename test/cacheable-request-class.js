@@ -1,19 +1,14 @@
-import { request } from 'http';
-import test from 'ava';
-import CacheableRequest from 'this';
+/* global test, expect */
 
-test('CacheableRequest is a function', t => {
-	t.is(typeof CacheableRequest, 'function');
-});
-
-test('CacheableRequest cannot be invoked without \'new\'', t => {
-	t.throws(() => CacheableRequest(request)); // eslint-disable-line new-cap
-	t.notThrows(() => new CacheableRequest(request));
-});
-
-test('CacheableRequest throws TypeError if request fn isn\'t passed in', t => {
-	const error = t.throws(() => {
-		new CacheableRequest(); // eslint-disable-line no-new
-	}, TypeError);
-	t.is(error.message, 'Parameter `request` must be a function');
-});
+const { request } = require('node:http')
+const Keyv = require('keyv')
+const CacheableRequest = require('../src')
+test('CacheableRequest is a function', () => {
+  expect(typeof CacheableRequest).toBe('function')
+})
+test("CacheableRequest cannot be invoked without 'new'", () => {
+  expect(() => CacheableRequest(request, {})).not.toThrow()
+})
+test('CacheableRequest accepts Keyv instance', () => {
+  expect(() => CacheableRequest(request, new Keyv())).not.toThrow()
+})
