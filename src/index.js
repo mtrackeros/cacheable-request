@@ -9,6 +9,8 @@ const stream = require('node:stream')
 const urlLib = require('node:url')
 const Keyv = require('keyv')
 
+const { cloneResponse } = require('./clone-response')
+
 const { Readable } = stream
 
 const CacheableRequest = function (request, cacheAdapter) {
@@ -131,8 +133,9 @@ function createCacheableRequest (request, cache) {
             }
           })()
         }
-        ee.emit('response', response)
-        if (typeof cb === 'function') cb(response)
+        const clonedResponse = cloneResponse(response)
+        ee.emit('response', clonedResponse)
+        if (typeof cb === 'function') cb(clonedResponse)
       }
       try {
         const request_ = request(options_, handler)

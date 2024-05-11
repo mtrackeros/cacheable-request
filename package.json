@@ -29,6 +29,8 @@
     "layer"
   ],
   "dependencies": {
+    "clone-response": "^2.0.0",
+    "esbuild": "~0.21.1",
     "http-cache-semantics": "^4.1.1",
     "keyv": "^4.5.4",
     "normalize-url": "^6.0.3",
@@ -59,6 +61,7 @@
     "src"
   ],
   "scripts": {
+    "postinstall": "[ -f src/clone-response.js ] || echo \"export { default as cloneResponse } from 'clone-response'\" | esbuild --bundle --target=ES2019 --format=cjs --platform=node > src/clone-response.js",
     "test": "c8 jest"
   },
   "license": "MIT"
