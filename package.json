@@ -58,7 +58,7 @@
     "node": ">=18"
   },
   "files": [
-    "src"
+    "src/index.js"
   ],
   "scripts": {
     "postinstall": "[ -f src/clone-response.js ] || echo \"export { default as cloneResponse } from 'clone-response'\" | esbuild --bundle --target=ES2019 --format=cjs --platform=node > src/clone-response.js",
