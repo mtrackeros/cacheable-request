@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.5](https://github.com/@kikobeats/cacheable-request/compare/v7.0.4...v7.0.5) (2024-05-11)
+
+
+### Bug Fixes
+
+* don't publish generated file ([6eeff08](https://github.com/@kikobeats/cacheable-request/commit/6eeff08f661c36aca7cadccd2df727b095ffd722))
+* emit cloned response ([348363c](https://github.com/@kikobeats/cacheable-request/commit/348363c2a297c1dc7fbe8bc195b62cd8aefb3d5d))
+
 ### [7.0.4](https://github.com/@kikobeats/cacheable-request/compare/v7.0.2...v7.0.4) (2024-05-11)
 
 
